@@ -129,30 +129,6 @@ typedef enum
 } nodes;
 
 /**  
- * @brief Updates probability that node will be cluster head.
- * @param Fictive number of nodes.
- * @return Updated probability.
- * 
- */
-float update_probability(float n);
-
-/**  
- * @brief Calculates fictive number of nodes.
- * @param Signal strength to base.
- * @return True if update was successful.
- * 
- */
-bool modify_N(unsigned char p);
-
-/**  
- * @brief Scanes network for BASE_SSID.
- * @param none.
- * @return none.
- * 
- */
-void base_signal_strength(void);
-
-/**  
  * @brief Check if received message from broadcast port contains
  * value for this node 
  * @param String of packet received.
@@ -329,7 +305,7 @@ bool mount_fs(void);
  * @param r Current round.
  * @return Returns threshold for current round.
  */
-float calculate_threshold(unsigned char r);
+float calculate_threshold(float P, unsigned char r);
 
 /**
  * @brief Generates random number between 0 and 1.
