@@ -27,9 +27,6 @@
   * when all nodes must be in initial state.*/
 #define ROUND_RESET               0
 
-/**Maximum number of nodes in network*/
-#define NUMBER_OF_NODES           5
-
 /** String length for round to be writen to filesystem.*/
 #define ROUND_NUMBER_LENGTH       2
 
@@ -305,7 +302,7 @@ bool mount_fs(void);
  * @param r Current round.
  * @return Returns threshold for current round.
  */
-float calculate_threshold(float P, unsigned char r);
+float calculate_threshold(unsigned char r);
 
 /**
  * @brief Generates random number between 0 and 1.

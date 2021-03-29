@@ -10,10 +10,12 @@
 #include "includes.h"
 
 #define IP(a,b,c,d) (uint32_t)(a | (b << 8) | (c << 16) | (d << 24))
+/**Maximum number of nodes in network*/
+#define NUMBER_OF_NODES       5
 
 /** Probability that node will be cluster head for current round.
  *  Determined apriori, depends of number of nodes.*/
-float P = 1/NUMBER_OF_NODES;
+float P = 1.0/NUMBER_OF_NODES;
 
 /** Name of file where round and if node was cluster head
  *  will be kept.*/
@@ -804,7 +806,7 @@ void wait_for_CH (void)
           Serial.println("Message contains for how long i should sleep !");
 #endif
 
-          delay_time = (unsigned char)strtol(SLEEP_STRING, &ptr, 10);
+          //delay_time = (unsigned char)strtol(SLEEP_STRING, &ptr, 10);
 
 #if DEBUG
           Serial.print("Got message from CH and i should send my adc in");
@@ -827,7 +829,7 @@ void wait_for_CH (void)
           Serial.println("In future try modem sleep.");
 #endif
 
-          delay(delay_time * 1000);
+          //delay(delay_time * 1000);
 
 #if DEBUG
           Serial.print("Sending packet to CH =  ");
@@ -924,7 +926,7 @@ unsigned char cluster_head(unsigned char *round_cnt, unsigned char *ch_enable)
   unsigned char ret;
 
   rnd_nmb = random_number();
-  threshold = calculate_threshold(P, *round_cnt);
+  threshold = calculate_threshold(*round_cnt);
 
   if ((rnd_nmb < threshold) && (*ch_enable == 1)) {
     *ch_enable = 0;
@@ -1001,7 +1003,7 @@ void read_fs(unsigned char *round_cnt, unsigned char *ch)
 #endif
 }
 
-float calculate_threshold(float P, unsigned char r)
+float calculate_threshold(unsigned char r)
 {
   float T;
 
@@ -1012,6 +1014,8 @@ float calculate_threshold(float P, unsigned char r)
   Serial.println(r);
   Serial.print("T = ");
   Serial.println(T, 3);
+  Serial.print("P = ");
+  Serial.println(P, 3);
 #endif;
   
   return T;
